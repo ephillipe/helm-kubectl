@@ -14,7 +14,8 @@ LABEL org.label-schema.vcs-ref=$VCS_REF \
 
 RUN apk add --no-cache ca-certificates bash git openssh curl gettext jq bind-tools && \
     ARCH=`uname -m` && \
-    if [ "$ARCH" == "aarch64" ]; then \
+    echo "ARCH: $ARCH"; \
+    if [ "aarch64 arm64" =~ .*"$ARCH".* ]; then \
        ARCH="arm64"; \
     else \
        ARCH="amd64"; \
