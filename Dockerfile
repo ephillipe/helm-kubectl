@@ -12,13 +12,13 @@ LABEL org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.vcs-url="https://github.com/dtzar/helm-kubectl" \
       org.label-schema.build-date=$BUILD_DATE
 
-RUN apk add --no-cache ca-certificates bash git openssh curl gettext jq bind-tools \
+RUN apk add --no-cache ca-certificates bash git openssh curl gettext jq bind-tools && \
     ARCH=`uname -m` && \
     if [ "$ARCH" == @(aarch64|arm64|arm64v8) ]; then \
        ARCH="arm64"; \
     else \
        ARCH="amd64"; \
-    fi'
+    fi' \
     && wget -q https://storage.googleapis.com/kubernetes-release/release/v${KUBE_VERSION}/bin/linux/$ARCH/kubectl -O /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl \
     && wget -q https://get.helm.sh/helm-v${HELM_VERSION}-linux-$ARCH.tar.gz -O - | tar -xzO linux-$ARCH/helm > /usr/local/bin/helm \
