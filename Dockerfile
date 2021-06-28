@@ -20,6 +20,7 @@ RUN apk add --no-cache ca-certificates bash git openssh curl gettext jq bind-too
     else \
        ARCH="amd64"; \
     fi \
+    && echo "ARCH: $ARCH" \
     && wget -q https://storage.googleapis.com/kubernetes-release/release/v${KUBE_VERSION}/bin/linux/$ARCH/kubectl -O /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl \
     && wget -q https://get.helm.sh/helm-v${HELM_VERSION}-linux-$ARCH.tar.gz -O - | tar -xzO linux-$ARCH/helm > /usr/local/bin/helm \
